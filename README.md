@@ -58,7 +58,7 @@ py -3.11 -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
 never touches `var\stashtrace.db`):
 
 ```powershell
-# Run all 48 automated tests; -q prints one dot per passing test and a summary line.
+# Run the full automated test suite; -q prints one dot per passing test and a summary line.
 py -3.11 -m pytest -q
 ```
 
@@ -113,7 +113,7 @@ records, even by typing its ID into the URL.
 |---|---|---|---|---|
 | EMP-000004 | Ada Admin | Administrator | All | Yes |
 | EMP-000005 | Omar Ops | Operations manager | All | Yes (recommended for reviewing) |
-| EMP-000006 | Ana Analyst | Merchandising / e-commerce analyst | All (read-only) | Yes |
+| EMP-000006 | Ana Analyst | Merchandising / e-commerce analyst | All stores. Can view, export, and run detection, but cannot manage cases. | Yes |
 | EMP-000007 | Lee Prevention | Loss prevention investigator | STORE-000001, STORE-000002 (region R01) | Yes |
 | EMP-000010 | Morgan Manager | Store manager | STORE-000001 | Yes |
 | EMP-000011 | Casey Clerk | Stock clerk | STORE-000001 | Yes |
@@ -260,7 +260,7 @@ docs/          architecture, data dictionary, schema, full-run reports, full-dat
 
 ## Tests
 
-`py -3.11 -m pytest -q` runs 48 tests. They cover:
+`py -3.11 -m pytest -q` runs the full test suite. It covers:
 
 * the end-to-end API flow and each negative scenario
 * idempotent replay and conflicts, event-time role checks, and the guarantee that no quarantined row touches stock
