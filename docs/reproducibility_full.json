@@ -1,0 +1,164 @@
+{
+  "profile": "full",
+  "seed": 20261022,
+  "all_identical": true,
+  "seconds": {
+    "run_a": 146.7,
+    "run_b": 130.4,
+    "other_seed": 153.9
+  },
+  "files": [
+    {
+      "file": "counts_input.csv",
+      "rows": 20000,
+      "sha256_run_a": "da8cedefe5b95f95f401adae02874d10e5b74b9fe8868e1f9f175b7a4013796c",
+      "sha256_run_b": "da8cedefe5b95f95f401adae02874d10e5b74b9fe8868e1f9f175b7a4013796c",
+      "identical": true,
+      "differs_with_other_seed": true
+    },
+    {
+      "file": "employee_roles.csv",
+      "rows": 9,
+      "sha256_run_a": "4889d8b160de8746c1784595ab200e8b004bdaaca73c85a15966c13071172b72",
+      "sha256_run_b": "4889d8b160de8746c1784595ab200e8b004bdaaca73c85a15966c13071172b72",
+      "identical": true,
+      "differs_with_other_seed": false
+    },
+    {
+      "file": "employees.csv",
+      "rows": 1024,
+      "sha256_run_a": "67f59e72c215b0a81951daf914a6d2663070c6860105b8b067632fe9b0ffaa16",
+      "sha256_run_b": "67f59e72c215b0a81951daf914a6d2663070c6860105b8b067632fe9b0ffaa16",
+      "identical": true,
+      "differs_with_other_seed": true
+    },
+    {
+      "file": "ground_truth.csv",
+      "rows": 39379,
+      "sha256_run_a": "e4589eaf04a38fc31a95ce35073a992cd704b2c45cd88a582ffbcb52c103dda5",
+      "sha256_run_b": "e4589eaf04a38fc31a95ce35073a992cd704b2c45cd88a582ffbcb52c103dda5",
+      "identical": true,
+      "differs_with_other_seed": true
+    },
+    {
+      "file": "ground_truth.json",
+      "rows": null,
+      "sha256_run_a": "56d9257f3d6c2a5362882f5649eb7247ea4e601d8ad7b673d66e33af504b1ab1",
+      "sha256_run_b": "56d9257f3d6c2a5362882f5649eb7247ea4e601d8ad7b673d66e33af504b1ab1",
+      "identical": true,
+      "differs_with_other_seed": true
+    },
+    {
+      "file": "movements_input.csv",
+      "rows": 1000000,
+      "sha256_run_a": "e9baea0f49c7d2c3666acd2543d990c2547e7c1098dfd365d5992dbf7ad9898e",
+      "sha256_run_b": "e9baea0f49c7d2c3666acd2543d990c2547e7c1098dfd365d5992dbf7ad9898e",
+      "identical": true,
+      "differs_with_other_seed": true
+    },
+    {
+      "file": "promotion_scopes.csv",
+      "rows": 7675,
+      "sha256_run_a": "cfce3950880f30c8e7911c44c1e6d8557a985bb0469362c79a0d3bcffac15452",
+      "sha256_run_b": "cfce3950880f30c8e7911c44c1e6d8557a985bb0469362c79a0d3bcffac15452",
+      "identical": true,
+      "differs_with_other_seed": true
+    },
+    {
+      "file": "promotions.csv",
+      "rows": 120,
+      "sha256_run_a": "5efe57036be029535ed9fcd02a6c53015170fee6fd028dde9b81e7d88066b1f1",
+      "sha256_run_b": "5efe57036be029535ed9fcd02a6c53015170fee6fd028dde9b81e7d88066b1f1",
+      "identical": true,
+      "differs_with_other_seed": true
+    },
+    {
+      "file": "role_assignments.csv",
+      "rows": 1116,
+      "sha256_run_a": "bc32e81b88d34b9baddb1234e9ff29ee6886963271ee96db01b48d607b0a51c1",
+      "sha256_run_b": "bc32e81b88d34b9baddb1234e9ff29ee6886963271ee96db01b48d607b0a51c1",
+      "identical": true,
+      "differs_with_other_seed": true
+    },
+    {
+      "file": "role_permissions.csv",
+      "rows": 63,
+      "sha256_run_a": "9541375c86e4fb02c9f4ebfff476f89a099895e82f8f2690d30943ec2e803353",
+      "sha256_run_b": "9541375c86e4fb02c9f4ebfff476f89a099895e82f8f2690d30943ec2e803353",
+      "identical": true,
+      "differs_with_other_seed": false
+    },
+    {
+      "file": "shifts.csv",
+      "rows": 36200,
+      "sha256_run_a": "e6d05431700e58652cbc9f4ec66caae94e8ab5224c022657694c0d510539caf6",
+      "sha256_run_b": "e6d05431700e58652cbc9f4ec66caae94e8ab5224c022657694c0d510539caf6",
+      "identical": true,
+      "differs_with_other_seed": false
+    },
+    {
+      "file": "skus.csv",
+      "rows": 5000,
+      "sha256_run_a": "75fe945de7c1949a30d15231aa0d38d38ac05940bd5d3a559c606bdddd2d3ef5",
+      "sha256_run_b": "75fe945de7c1949a30d15231aa0d38d38ac05940bd5d3a559c606bdddd2d3ef5",
+      "identical": true,
+      "differs_with_other_seed": true
+    },
+    {
+      "file": "source_documents.csv",
+      "rows": 34290,
+      "sha256_run_a": "ed76915c04ed9159974bf26f4b6b36f80a16b3930d21be461fbe817e2c908690",
+      "sha256_run_b": "ed76915c04ed9159974bf26f4b6b36f80a16b3930d21be461fbe817e2c908690",
+      "identical": true,
+      "differs_with_other_seed": true
+    },
+    {
+      "file": "sql/seed_masters.sql",
+      "rows": null,
+      "sha256_run_a": "73e53a1393188f6b1912388582a5e0a74e6890c5f2277157a3bce276b1faec7e",
+      "sha256_run_b": "73e53a1393188f6b1912388582a5e0a74e6890c5f2277157a3bce276b1faec7e",
+      "identical": true,
+      "differs_with_other_seed": true
+    },
+    {
+      "file": "sql/stage_inputs.sqlite3.sql",
+      "rows": null,
+      "sha256_run_a": "d4eabc90694f6ce764a5e958f3a4a0180e38dc0edcdb2bf7d8310cd210035a70",
+      "sha256_run_b": "d4eabc90694f6ce764a5e958f3a4a0180e38dc0edcdb2bf7d8310cd210035a70",
+      "identical": true,
+      "differs_with_other_seed": false
+    },
+    {
+      "file": "store_skus.csv",
+      "rows": 65786,
+      "sha256_run_a": "cd6c6bb301a0e93de3bb9c50423ec376b839d5215c7109ee42984f0d979d8378",
+      "sha256_run_b": "cd6c6bb301a0e93de3bb9c50423ec376b839d5215c7109ee42984f0d979d8378",
+      "identical": true,
+      "differs_with_other_seed": true
+    },
+    {
+      "file": "stores.csv",
+      "rows": 100,
+      "sha256_run_a": "b66cf083dfbf1a48236f92f5d37f68a2dc40da1aabc5090acd322f331c6c8d43",
+      "sha256_run_b": "b66cf083dfbf1a48236f92f5d37f68a2dc40da1aabc5090acd322f331c6c8d43",
+      "identical": true,
+      "differs_with_other_seed": true
+    },
+    {
+      "file": "transfer_lines.csv",
+      "rows": 53983,
+      "sha256_run_a": "f5e28f1ec410bc40f52302b9dd33c6e00fb0427c7d038dbcafed18eff1f82b6c",
+      "sha256_run_b": "f5e28f1ec410bc40f52302b9dd33c6e00fb0427c7d038dbcafed18eff1f82b6c",
+      "identical": true,
+      "differs_with_other_seed": true
+    },
+    {
+      "file": "transfers.csv",
+      "rows": 15735,
+      "sha256_run_a": "c93f2329670c49e98cc7761eeb545717e1ba8470c694649833be29059de31b85",
+      "sha256_run_b": "c93f2329670c49e98cc7761eeb545717e1ba8470c694649833be29059de31b85",
+      "identical": true,
+      "differs_with_other_seed": true
+    }
+  ]
+}

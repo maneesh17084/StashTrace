@@ -1,0 +1,3936 @@
+{
+  "store": {
+    "entity": "Store",
+    "description": "A selling location or distribution warehouse.",
+    "append_only": false,
+    "primary_key": [
+      "store_id"
+    ],
+    "unique": [],
+    "foreign_keys": [],
+    "checks": [
+      "status IN ('ACTIVE', 'CLOSED')",
+      "store_type IN ('STORE', 'WAREHOUSE')"
+    ],
+    "columns": [
+      {
+        "name": "store_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Store or warehouse public ID.",
+        "units": "",
+        "allowed": "",
+        "validation": "^STORE-\\d{6}$, immutable"
+      },
+      {
+        "name": "store_name",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Display name.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "store_type",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Retail store or distribution warehouse.",
+        "units": "",
+        "allowed": "STORE, WAREHOUSE",
+        "validation": ""
+      },
+      {
+        "name": "region_code",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Operating region (drives loss-prevention scope).",
+        "units": "",
+        "allowed": "",
+        "validation": "^R\\d{2}$"
+      },
+      {
+        "name": "timezone",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "IANA timezone (informational; all stored timestamps are UTC).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "opened_on",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Opening date.",
+        "units": "date",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "status",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Lifecycle state.",
+        "units": "",
+        "allowed": "ACTIVE, CLOSED",
+        "validation": ""
+      },
+      {
+        "name": "closed_on",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Closure date when status=CLOSED.",
+        "units": "date",
+        "allowed": "",
+        "validation": ">= opened_on"
+      }
+    ]
+  },
+  "sku": {
+    "entity": "SKU",
+    "description": "A stock-keeping unit.",
+    "append_only": false,
+    "primary_key": [
+      "sku_id"
+    ],
+    "unique": [],
+    "foreign_keys": [],
+    "checks": [
+      "category IN ('GROCERY', 'BEVERAGE', 'SPIRITS', 'HEALTH_BEAUTY', 'COSMETICS', 'ELECTRONICS', 'ACCESSORIES', 'HOME', 'TOYS', 'APPAREL', 'FRESH', 'HARDWARE')",
+      "shrink_risk IN ('LOW', 'MEDIUM', 'HIGH')",
+      "status IN ('ACTIVE', 'DISCONTINUED')",
+      "unit_cost_cents > 0",
+      "unit_price_cents >= unit_cost_cents"
+    ],
+    "columns": [
+      {
+        "name": "sku_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Product public ID.",
+        "units": "",
+        "allowed": "",
+        "validation": "^SKU-\\d{6}$, immutable"
+      },
+      {
+        "name": "sku_name",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Product description.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "category",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Merchandise category.",
+        "units": "",
+        "allowed": "GROCERY, BEVERAGE, SPIRITS, HEALTH_BEAUTY, COSMETICS, ELECTRONICS, ACCESSORIES, HOME, TOYS, APPAREL, FRESH, HARDWARE",
+        "validation": ""
+      },
+      {
+        "name": "brand",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Synthetic brand name.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "uom",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Unit of measure; all quantities are counted in this unit.",
+        "units": "",
+        "allowed": "EA",
+        "validation": ""
+      },
+      {
+        "name": "unit_cost_cents",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Standard cost per unit.",
+        "units": "USD cents",
+        "allowed": "",
+        "validation": "> 0"
+      },
+      {
+        "name": "unit_price_cents",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Regular selling price per unit.",
+        "units": "USD cents",
+        "allowed": "",
+        "validation": ">= unit_cost_cents"
+      },
+      {
+        "name": "shrink_risk",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Merchandising risk class used for count targeting.",
+        "units": "",
+        "allowed": "LOW, MEDIUM, HIGH",
+        "validation": ""
+      },
+      {
+        "name": "status",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Lifecycle state.",
+        "units": "",
+        "allowed": "ACTIVE, DISCONTINUED",
+        "validation": ""
+      },
+      {
+        "name": "introduced_on",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Date the SKU entered the catalogue.",
+        "units": "date",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "store_sku": {
+    "entity": "StoreSKU",
+    "description": "Bridge Store N:M SKU (assortment) with effective dates and opening balance.",
+    "append_only": false,
+    "primary_key": [
+      "store_id",
+      "sku_id"
+    ],
+    "unique": [],
+    "foreign_keys": [
+      "(sku_id) \u2192 sku(sku_id)",
+      "(source_warehouse_id) \u2192 store(store_id)",
+      "(store_id) \u2192 store(store_id)"
+    ],
+    "checks": [
+      "active_to IS NULL OR active_to > active_from",
+      "opening_qty >= 0",
+      "replenishment_source IN ('VENDOR', 'DC')"
+    ],
+    "columns": [
+      {
+        "name": "store_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Store carrying the SKU.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "sku_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "SKU carried.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "active_from",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Assortment effective start (inclusive).",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "active_to",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Assortment effective end (exclusive); NULL = open-ended.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": "> active_from"
+      },
+      {
+        "name": "opening_qty",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Opening on-hand balance at opening_as_of.",
+        "units": "units",
+        "allowed": "",
+        "validation": ">= 0"
+      },
+      {
+        "name": "opening_as_of",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Timestamp of the opening balance; movements before it are rejected.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": "= active_from"
+      },
+      {
+        "name": "replenishment_source",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "How the assortment is replenished.",
+        "units": "",
+        "allowed": "VENDOR, DC",
+        "validation": ""
+      },
+      {
+        "name": "source_warehouse_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Supplying warehouse when replenishment_source=DC.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "employee": {
+    "entity": "Employee",
+    "description": "Actors who post movements, count, approve or investigate.",
+    "append_only": false,
+    "primary_key": [
+      "employee_id"
+    ],
+    "unique": [],
+    "foreign_keys": [
+      "(home_store_id) \u2192 store(store_id)"
+    ],
+    "checks": [
+      "employee_type IN ('HUMAN', 'SERVICE')",
+      "status IN ('ACTIVE', 'TERMINATED')"
+    ],
+    "columns": [
+      {
+        "name": "employee_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Person or service identity.",
+        "units": "",
+        "allowed": "",
+        "validation": "^EMP-\\d{6}$"
+      },
+      {
+        "name": "display_name",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Synthetic display name (no real personal data).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "employee_type",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "HUMAN or SERVICE (automated feed identity).",
+        "units": "",
+        "allowed": "HUMAN, SERVICE",
+        "validation": ""
+      },
+      {
+        "name": "home_store_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Home store for store staff.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "hired_on",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Start date.",
+        "units": "date",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "terminated_on",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Leaving date; NULL while employed.",
+        "units": "date",
+        "allowed": "",
+        "validation": ">= hired_on"
+      },
+      {
+        "name": "status",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Lifecycle state.",
+        "units": "",
+        "allowed": "ACTIVE, TERMINATED",
+        "validation": ""
+      },
+      {
+        "name": "password_hash",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "PBKDF2 hash; only set for demo log-ins. Never exported.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "employee_role": {
+    "entity": "EmployeeRole",
+    "description": "Role catalogue. Permissions via RolePermission; people via RoleAssignment.",
+    "append_only": false,
+    "primary_key": [
+      "role_code"
+    ],
+    "unique": [],
+    "foreign_keys": [],
+    "checks": [],
+    "columns": [
+      {
+        "name": "role_code",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Role identifier.",
+        "units": "",
+        "allowed": "CASHIER, STOCK_CLERK, STORE_MANAGER, LOSS_PREVENTION, OPS_MANAGER, ANALYST, SERVICE_FEED, SYSTEM, ADMIN",
+        "validation": ""
+      },
+      {
+        "name": "role_name",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Display name.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "default_scope",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Typical assignment scope.",
+        "units": "",
+        "allowed": "STORE, REGION, ALL",
+        "validation": ""
+      }
+    ]
+  },
+  "role_permission": {
+    "entity": "RolePermission",
+    "description": "Bridge EmployeeRole N:M action.",
+    "append_only": false,
+    "primary_key": [
+      "role_code",
+      "action"
+    ],
+    "unique": [],
+    "foreign_keys": [
+      "(role_code) \u2192 employee_role(role_code)"
+    ],
+    "checks": [
+      "action IN ('VIEW_STORE', 'VIEW_ALL_STORES', 'POST_SALE', 'POST_RETURN', 'POST_RECEIPT', 'POST_TRANSFER', 'POST_ADJUSTMENT', 'POST_REVERSAL', 'APPROVE_ADJUSTMENT', 'SUBMIT_COUNT', 'IMPORT_BATCH', 'RUN_DETECTION', 'ASSIGN_CASE', 'INVESTIGATE', 'RESOLVE_CASE', 'EXPORT_DATA')"
+    ],
+    "columns": [
+      {
+        "name": "role_code",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Role.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "action",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Permitted action.",
+        "units": "",
+        "allowed": "VIEW_STORE, VIEW_ALL_STORES, POST_SALE, POST_RETURN, POST_RECEIPT, POST_TRANSFER, POST_ADJUSTMENT, POST_REVERSAL, APPROVE_ADJUSTMENT, SUBMIT_COUNT, IMPORT_BATCH, RUN_DETECTION, ASSIGN_CASE, INVESTIGATE, RESOLVE_CASE, EXPORT_DATA",
+        "validation": ""
+      }
+    ]
+  },
+  "role_assignment": {
+    "entity": "RoleAssignment",
+    "description": "Effective-dated grant of a role to an employee for a store (or all stores).",
+    "append_only": false,
+    "primary_key": [
+      "assignment_id"
+    ],
+    "unique": [],
+    "foreign_keys": [
+      "(employee_id) \u2192 employee(employee_id)",
+      "(role_code) \u2192 employee_role(role_code)",
+      "(store_id) \u2192 store(store_id)"
+    ],
+    "checks": [
+      "effective_to IS NULL OR effective_to > effective_from"
+    ],
+    "columns": [
+      {
+        "name": "assignment_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Assignment ID.",
+        "units": "",
+        "allowed": "",
+        "validation": "^RA-\\d{6}$"
+      },
+      {
+        "name": "employee_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Employee holding the role.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "role_code",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Role granted.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "store_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Store scope; NULL = all stores.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "effective_from",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Start of authority (inclusive).",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "effective_to",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "End of authority (exclusive); NULL = open-ended.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": "> effective_from"
+      }
+    ]
+  },
+  "shift": {
+    "entity": "Shift",
+    "description": "A staffed time window at a store; every posting is tied to one.",
+    "append_only": false,
+    "primary_key": [
+      "shift_id"
+    ],
+    "unique": [
+      "store_id, start_at"
+    ],
+    "foreign_keys": [
+      "(store_id) \u2192 store(store_id)"
+    ],
+    "checks": [
+      "end_at > start_at",
+      "shift_type IN ('OPEN', 'CLOSE', 'DAY', 'SWING')"
+    ],
+    "columns": [
+      {
+        "name": "shift_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Shift ID.",
+        "units": "",
+        "allowed": "",
+        "validation": "^SHF-2026-\\d{7}$"
+      },
+      {
+        "name": "store_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Store the shift runs at.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "shift_date",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Business date.",
+        "units": "date",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "shift_type",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Shift pattern.",
+        "units": "",
+        "allowed": "OPEN, CLOSE, DAY, SWING",
+        "validation": ""
+      },
+      {
+        "name": "start_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Shift start (inclusive).",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "end_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Shift end (exclusive).",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": "> start_at"
+      }
+    ]
+  },
+  "promotion": {
+    "entity": "Promotion",
+    "description": "Explains sales uplift; never posts stock itself.",
+    "append_only": false,
+    "primary_key": [
+      "promotion_id"
+    ],
+    "unique": [],
+    "foreign_keys": [],
+    "checks": [
+      "discount_pct BETWEEN 1 AND 90",
+      "end_date >= start_date",
+      "promo_type IN ('PERCENT_OFF', 'MULTI_BUY', 'CLEARANCE')"
+    ],
+    "columns": [
+      {
+        "name": "promotion_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Promotion ID.",
+        "units": "",
+        "allowed": "",
+        "validation": "^PRM-2026-\\d{6}$"
+      },
+      {
+        "name": "promo_name",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Display name.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "promo_type",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Mechanic.",
+        "units": "",
+        "allowed": "PERCENT_OFF, MULTI_BUY, CLEARANCE",
+        "validation": ""
+      },
+      {
+        "name": "discount_pct",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Headline discount.",
+        "units": "percent",
+        "allowed": "",
+        "validation": "1..90"
+      },
+      {
+        "name": "start_date",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "First promo day (inclusive).",
+        "units": "date",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "end_date",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Last promo day (inclusive).",
+        "units": "date",
+        "allowed": "",
+        "validation": ">= start_date"
+      }
+    ]
+  },
+  "promotion_scope": {
+    "entity": "PromotionScope",
+    "description": "Bridge Promotion N:M StoreSKU.",
+    "append_only": false,
+    "primary_key": [
+      "promotion_id",
+      "store_id",
+      "sku_id"
+    ],
+    "unique": [],
+    "foreign_keys": [
+      "(promotion_id) \u2192 promotion(promotion_id)",
+      "(store_id, sku_id) \u2192 store_sku(store_id, sku_id)"
+    ],
+    "checks": [],
+    "columns": [
+      {
+        "name": "promotion_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Promotion.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "store_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Store in scope.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "sku_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "SKU in scope.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "source_document": {
+    "entity": "SourceDocument",
+    "description": "Order/POS references that movements must match.",
+    "append_only": false,
+    "primary_key": [
+      "doc_id"
+    ],
+    "unique": [],
+    "foreign_keys": [
+      "(store_id) \u2192 store(store_id)"
+    ],
+    "checks": [
+      "doc_type IN ('PURCHASE_ORDER', 'POS_BATCH')"
+    ],
+    "columns": [
+      {
+        "name": "doc_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Authoritative upstream document.",
+        "units": "",
+        "allowed": "",
+        "validation": "PO-2026-NNNNNN | POS-2026-NNNNNNN"
+      },
+      {
+        "name": "doc_type",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Purchase order (receipts) or POS day batch (sales/returns).",
+        "units": "",
+        "allowed": "PURCHASE_ORDER, POS_BATCH",
+        "validation": ""
+      },
+      {
+        "name": "store_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Store the document belongs to \u2014 the authority for wrong-store checks.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "business_date",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Business date.",
+        "units": "date",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "transfer": {
+    "entity": "Transfer",
+    "description": "Inter-location transfer order; links dispatch and receipt legs. Status is derived from legs.",
+    "append_only": false,
+    "primary_key": [
+      "transfer_id"
+    ],
+    "unique": [],
+    "foreign_keys": [
+      "(from_store_id) \u2192 store(store_id)",
+      "(to_store_id) \u2192 store(store_id)"
+    ],
+    "checks": [
+      "expected_arrival_at >= created_at",
+      "from_store_id <> to_store_id"
+    ],
+    "columns": [
+      {
+        "name": "transfer_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Transfer ID.",
+        "units": "",
+        "allowed": "",
+        "validation": "^TRF-2026-\\d{6}$"
+      },
+      {
+        "name": "from_store_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Dispatching location.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "to_store_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Receiving location.",
+        "units": "",
+        "allowed": "",
+        "validation": "<> from_store_id"
+      },
+      {
+        "name": "created_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Transfer order creation time.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "expected_arrival_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Planned arrival.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ">= created_at"
+      }
+    ]
+  },
+  "transfer_line": {
+    "entity": "TransferLine",
+    "description": "Transfer 1:N lines (one per SKU).",
+    "append_only": false,
+    "primary_key": [
+      "transfer_id",
+      "sku_id"
+    ],
+    "unique": [],
+    "foreign_keys": [
+      "(sku_id) \u2192 sku(sku_id)",
+      "(transfer_id) \u2192 transfer(transfer_id)"
+    ],
+    "checks": [
+      "planned_qty > 0"
+    ],
+    "columns": [
+      {
+        "name": "transfer_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Transfer.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "sku_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "SKU on the transfer.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "planned_qty",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Ordered quantity.",
+        "units": "units",
+        "allowed": "",
+        "validation": "> 0"
+      }
+    ]
+  },
+  "import_batch": {
+    "entity": "ImportBatch",
+    "description": "One uploaded file. Immutable; processing state lives in import_batch_status.",
+    "append_only": false,
+    "primary_key": [
+      "batch_id"
+    ],
+    "unique": [],
+    "foreign_keys": [
+      "(submitted_by) \u2192 employee(employee_id)"
+    ],
+    "checks": [],
+    "columns": [
+      {
+        "name": "batch_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Import batch / job reference.",
+        "units": "",
+        "allowed": "",
+        "validation": "^IMP-2026-\\d{6}$"
+      },
+      {
+        "name": "batch_kind",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "What the file contains.",
+        "units": "",
+        "allowed": "MOVEMENTS, COUNTS",
+        "validation": ""
+      },
+      {
+        "name": "source_system",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Default upstream system for rows.",
+        "units": "",
+        "allowed": "POS, WMS, STORE_OPS, STASHTRACE",
+        "validation": ""
+      },
+      {
+        "name": "file_name",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Uploaded file name.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "file_sha256",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "SHA-256 of the uploaded bytes.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "header_csv",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Header line of the CSV (raw rows are stored without it).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "submitted_by",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Uploader.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "submitted_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Receive time.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "import_batch_status": {
+    "entity": "ImportBatchStatus",
+    "description": "Mutable progress projection of a batch (1:1).",
+    "append_only": false,
+    "primary_key": [
+      "batch_id"
+    ],
+    "unique": [],
+    "foreign_keys": [
+      "(batch_id) \u2192 import_batch(batch_id)"
+    ],
+    "checks": [
+      "posted_count + quarantined_count + duplicate_count + conflict_count = processed_count",
+      "status IN ('RECEIVED', 'PROCESSING', 'COMPLETED', 'FAILED')"
+    ],
+    "columns": [
+      {
+        "name": "batch_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Batch.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "status",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Processing state.",
+        "units": "",
+        "allowed": "RECEIVED, PROCESSING, COMPLETED, FAILED",
+        "validation": ""
+      },
+      {
+        "name": "received_count",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Rows saved on receive.",
+        "units": "rows",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "processed_count",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Rows validated so far.",
+        "units": "rows",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "posted_count",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Rows posted to the ledger / counts.",
+        "units": "rows",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "quarantined_count",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Rows rejected with an error code.",
+        "units": "rows",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "duplicate_count",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Exact replays of earlier rows.",
+        "units": "rows",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "conflict_count",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Same event ID, different payload.",
+        "units": "rows",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "started_at",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Worker start.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "finished_at",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Worker finish.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "error_message",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Fatal error if FAILED.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "import_raw_row": {
+    "entity": "ImportRawRow",
+    "description": "Untrusted input as received (append-only). Never read by stock calculations.",
+    "append_only": true,
+    "primary_key": [
+      "row_id"
+    ],
+    "unique": [
+      "batch_id, row_number"
+    ],
+    "foreign_keys": [
+      "(batch_id) \u2192 import_batch(batch_id)"
+    ],
+    "checks": [],
+    "columns": [
+      {
+        "name": "row_id",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Surrogate key.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "batch_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Batch.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "row_number",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "1-based data row number in the file.",
+        "units": "",
+        "allowed": "",
+        "validation": "unique per batch"
+      },
+      {
+        "name": "raw_line",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Row exactly as received (CSV line or JSON).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "import_row_result": {
+    "entity": "ImportRowResult",
+    "description": "Validation outcome per raw row (append-only, 1:1 with ImportRawRow).",
+    "append_only": true,
+    "primary_key": [
+      "row_id"
+    ],
+    "unique": [],
+    "foreign_keys": [
+      "(batch_id) \u2192 import_batch(batch_id)",
+      "(corrects_row_id) \u2192 import_raw_row(row_id)",
+      "(count_id) \u2192 cycle_count(count_id)",
+      "(duplicate_of_row_id) \u2192 import_raw_row(row_id)",
+      "(movement_id) \u2192 inventory_movement(movement_id)",
+      "(row_id) \u2192 import_raw_row(row_id)"
+    ],
+    "checks": [
+      "outcome IN ('POSTED', 'QUARANTINED', 'DUPLICATE', 'CONFLICT')"
+    ],
+    "columns": [
+      {
+        "name": "row_id",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Raw row validated.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "batch_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Batch (denormalised for filtering).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "source_system",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Upstream system of the row.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "source_event_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Upstream event / count ID (idempotency key with source_system).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "payload_sha256",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "SHA-256 of the canonical business payload (excludes received_at).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "outcome",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Validation outcome.",
+        "units": "",
+        "allowed": "POSTED, QUARANTINED, DUPLICATE, CONFLICT",
+        "validation": ""
+      },
+      {
+        "name": "error_code",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Primary (highest-precedence) error.",
+        "units": "",
+        "allowed": "see catalog.ERROR_CODES",
+        "validation": ""
+      },
+      {
+        "name": "errors_json",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "All errors found, JSON list of {code, field, message}.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "movement_type",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Submitted movement type (movement batches).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "submitted_store_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Store as submitted (may be wrong).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "authoritative_store_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Store from the authoritative reference when it could be resolved.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "sku_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "SKU as submitted.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "occurred_at",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Event time as submitted.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "explain_qty",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Units this row would have removed from stock had it posted (quarantined rows explain count shortages).",
+        "units": "units",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "corrects_row_id",
+        "type": "INTEGER",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Earlier quarantined row this submission corrects.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "duplicate_of_row_id",
+        "type": "INTEGER",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Earlier row this replays/conflicts with.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "movement_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Ledger entry created (POSTED) or matched (DUPLICATE).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "count_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Count created or matched (count batches).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "processed_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Validation time.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "ingest_key": {
+    "entity": "IngestKey",
+    "description": "Idempotency index (derived, rebuildable from import_row_result).",
+    "append_only": false,
+    "primary_key": [
+      "source_system",
+      "source_event_id"
+    ],
+    "unique": [],
+    "foreign_keys": [
+      "(latest_row_id) \u2192 import_raw_row(row_id)"
+    ],
+    "checks": [],
+    "columns": [
+      {
+        "name": "source_system",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Upstream system.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "source_event_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Upstream event ID.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "latest_row_id",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Row that currently defines this key's outcome.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "payload_sha256",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Payload hash of latest_row_id.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "outcome",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "POSTED or QUARANTINED.",
+        "units": "",
+        "allowed": "POSTED, QUARANTINED",
+        "validation": ""
+      },
+      {
+        "name": "movement_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Ledger entry when POSTED (movement keys).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "count_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Count when POSTED (count keys).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "inventory_movement": {
+    "entity": "InventoryMovement",
+    "description": "The trusted, append-only inventory ledger. Corrections are linked REVERSAL + replacement entries.",
+    "append_only": true,
+    "primary_key": [
+      "ledger_seq"
+    ],
+    "unique": [
+      "movement_id",
+      "reverses_movement_id",
+      "source_system, source_event_id"
+    ],
+    "foreign_keys": [
+      "(actor_id) \u2192 employee(employee_id)",
+      "(actor_role_code) \u2192 employee_role(role_code)",
+      "(approved_by) \u2192 employee(employee_id)",
+      "(approver_role_code) \u2192 employee_role(role_code)",
+      "(batch_id) \u2192 import_batch(batch_id)",
+      "(count_ref) \u2192 cycle_count(count_id)",
+      "(import_row_id) \u2192 import_raw_row(row_id)",
+      "(investigation_id) \u2192 investigation(investigation_id)",
+      "(reverses_movement_id) \u2192 inventory_movement(movement_id)",
+      "(shift_id) \u2192 shift(shift_id)",
+      "(source_doc_id) \u2192 source_document(doc_id)",
+      "(store_id, sku_id) \u2192 store_sku(store_id, sku_id)",
+      "(transfer_id) \u2192 transfer(transfer_id)"
+    ],
+    "checks": [
+      "movement_type <> 'ADJUSTMENT' OR (reason_code IS NOT NULL AND approved_by IS NOT NULL)",
+      "movement_type <> 'REVERSAL' OR reverses_movement_id IS NOT NULL",
+      "movement_type = 'ADJUSTMENT' OR quantity > 0",
+      "movement_type IN ('RECEIPT', 'SALE', 'TRANSFER_OUT', 'TRANSFER_IN', 'RETURN', 'ADJUSTMENT', 'REVERSAL')",
+      "movement_type NOT IN ('TRANSFER_IN','TRANSFER_OUT') OR transfer_id IS NOT NULL",
+      "quantity <> 0",
+      "received_at >= occurred_at"
+    ],
+    "columns": [
+      {
+        "name": "ledger_seq",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Monotonic posting sequence; used as the ledger watermark.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "movement_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": true,
+        "desc": "Public movement ID.",
+        "units": "",
+        "allowed": "",
+        "validation": "^MOV-2026-\\d{8}$, immutable"
+      },
+      {
+        "name": "source_system",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Upstream system.",
+        "units": "",
+        "allowed": "POS, WMS, STORE_OPS, STASHTRACE",
+        "validation": ""
+      },
+      {
+        "name": "source_event_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Upstream event ID; unique with source_system (idempotency).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "movement_type",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Kind of movement.",
+        "units": "",
+        "allowed": "RECEIPT, SALE, TRANSFER_OUT, TRANSFER_IN, RETURN, ADJUSTMENT, REVERSAL",
+        "validation": ""
+      },
+      {
+        "name": "store_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Store whose on-hand is affected.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "sku_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "SKU.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "quantity",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Units in the event. Positive, except ADJUSTMENT which is signed.",
+        "units": "units",
+        "allowed": "",
+        "validation": "<> 0"
+      },
+      {
+        "name": "stock_qty",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Signed effect on store on-hand (derived from type/disposition/reason).",
+        "units": "units",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "occurred_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "When it physically happened.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "received_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "When the upstream system emitted it / we received it.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ">= occurred_at"
+      },
+      {
+        "name": "posted_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "When StashTrace posted it to the ledger.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "actor_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Who performed it (service identity for feeds).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "actor_role_code",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Role that authorised the actor at occurred_at.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "shift_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Shift covering occurred_at at this store.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "source_doc_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "PO (receipts) or POS batch (sales/returns).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "transfer_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Transfer for TRANSFER_* legs and transit write-offs.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "count_ref",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Count that a COUNT_CORRECTION adjustment follows.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "investigation_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Case that approved an INVESTIGATION_WRITE_OFF.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "reason_code",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Adjustment reason (required for ADJUSTMENT).",
+        "units": "",
+        "allowed": "DAMAGE, EXPIRED, SAMPLING, OTHER, THEFT_CONFIRMED, INVESTIGATION_WRITE_OFF, TRANSFER_SHORTAGE, VENDOR_CREDIT, FOUND, COUNT_CORRECTION",
+        "validation": ""
+      },
+      {
+        "name": "approved_by",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Approver for adjustments (must differ from actor).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "approver_role_code",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Role that authorised the approval.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "reverses_movement_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": true,
+        "desc": "Original entry a REVERSAL negates (at most one reversal each).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "memo",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Free-text justification; required for REVERSAL.",
+        "units": "",
+        "allowed": "",
+        "validation": "<= 500 chars"
+      },
+      {
+        "name": "batch_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Import batch (API postings use a one-row batch).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "import_row_id",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Raw row that produced the posting.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "customer_return": {
+    "entity": "Return",
+    "description": "Customer return; posted with a RETURN movement whose stock effect depends on disposition.",
+    "append_only": true,
+    "primary_key": [
+      "return_id"
+    ],
+    "unique": [
+      "movement_id"
+    ],
+    "foreign_keys": [
+      "(movement_id) \u2192 inventory_movement(movement_id)",
+      "(original_sale_movement_id) \u2192 inventory_movement(movement_id)",
+      "(sku_id) \u2192 sku(sku_id)",
+      "(store_id) \u2192 store(store_id)"
+    ],
+    "checks": [
+      "disposition IN ('RESTOCK', 'DAMAGED', 'VENDOR_RETURN', 'DISPOSE')",
+      "quantity > 0"
+    ],
+    "columns": [
+      {
+        "name": "return_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Return ID.",
+        "units": "",
+        "allowed": "",
+        "validation": "^RET-2026-\\d{6}$"
+      },
+      {
+        "name": "store_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Store receiving the return.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "sku_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "SKU returned.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "quantity",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Units returned.",
+        "units": "units",
+        "allowed": "",
+        "validation": "> 0"
+      },
+      {
+        "name": "disposition",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "What happened to the goods. Only RESTOCK adds sellable stock.",
+        "units": "",
+        "allowed": "RESTOCK, DAMAGED, VENDOR_RETURN, DISPOSE",
+        "validation": ""
+      },
+      {
+        "name": "return_reason",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Customer reason.",
+        "units": "",
+        "allowed": "CHANGED_MIND, DEFECTIVE, WRONG_ITEM, NOT_AS_DESCRIBED",
+        "validation": ""
+      },
+      {
+        "name": "returned_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Return time.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "original_sale_movement_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Optional link to the original SALE (receipted return).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "restocked",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "1 when disposition permits restocking.",
+        "units": "",
+        "allowed": "0, 1",
+        "validation": ""
+      },
+      {
+        "name": "movement_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": true,
+        "desc": "RETURN ledger entry (1:1).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "stock_balance": {
+    "entity": "StockBalance",
+    "description": "Cached on-hand per StoreSKU, updated in the same transaction as each posting.",
+    "append_only": false,
+    "primary_key": [
+      "store_id",
+      "sku_id"
+    ],
+    "unique": [],
+    "foreign_keys": [
+      "(store_id, sku_id) \u2192 store_sku(store_id, sku_id)"
+    ],
+    "checks": [],
+    "columns": [
+      {
+        "name": "store_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Store.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "sku_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "SKU.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "on_hand",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "opening_qty + SUM(stock_qty) over the ledger. Cached; rebuildable.",
+        "units": "units",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "last_ledger_seq",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Highest ledger_seq included.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "updated_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Last update.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "cycle_count": {
+    "entity": "CycleCount",
+    "description": "Physical count snapshot. Never posts stock.",
+    "append_only": true,
+    "primary_key": [
+      "count_id"
+    ],
+    "unique": [],
+    "foreign_keys": [
+      "(batch_id) \u2192 import_batch(batch_id)",
+      "(counted_by) \u2192 employee(employee_id)",
+      "(counter_role_code) \u2192 employee_role(role_code)",
+      "(shift_id) \u2192 shift(shift_id)",
+      "(store_id, sku_id) \u2192 store_sku(store_id, sku_id)"
+    ],
+    "checks": [
+      "count_type IN ('SCHEDULED', 'AD_HOC', 'BLIND')",
+      "counted_qty >= 0"
+    ],
+    "columns": [
+      {
+        "name": "count_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Count ID.",
+        "units": "",
+        "allowed": "",
+        "validation": "^CNT-2026-\\d{6}$"
+      },
+      {
+        "name": "store_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Store counted.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "sku_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "SKU counted.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "counted_qty",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Physical quantity found.",
+        "units": "units",
+        "allowed": "",
+        "validation": ">= 0"
+      },
+      {
+        "name": "counted_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "When the physical count was performed.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "count_cutoff_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Ledger cutoff the count represents (movements with occurred_at <= cutoff are included).",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "submitted_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "When the count was submitted.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "counted_by",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Counter.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "counter_role_code",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Role authorising the count.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "shift_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Shift covering counted_at.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "count_type",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Count programme.",
+        "units": "",
+        "allowed": "SCHEDULED, AD_HOC, BLIND",
+        "validation": ""
+      },
+      {
+        "name": "batch_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Import batch (NULL for API submissions).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "count_reconciliation": {
+    "entity": "CountReconciliation",
+    "description": "Versioned expected-vs-counted calculation for a count (CycleCount 1:N).",
+    "append_only": true,
+    "primary_key": [
+      "recon_id"
+    ],
+    "unique": [
+      "count_id, version"
+    ],
+    "foreign_keys": [
+      "(count_id) \u2192 cycle_count(count_id)",
+      "(supersedes_recon_id) \u2192 count_reconciliation(recon_id)"
+    ],
+    "checks": [
+      "basis_status IN ('RELIABLE', 'TIMING_REVIEW')",
+      "expected_qty = opening_qty + receipts_qty + transfer_in_qty + restocked_returns_qty - sales_qty - transfer_out_qty + adjustments_qty",
+      "trigger IN ('COUNT_SUBMITTED', 'LATE_MOVEMENT', 'MANUAL_RECOMPUTE')",
+      "variance_qty = counted_qty - expected_qty"
+    ],
+    "columns": [
+      {
+        "name": "recon_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Reconciliation version ID.",
+        "units": "",
+        "allowed": "",
+        "validation": "^REC-2026-\\d{6}$"
+      },
+      {
+        "name": "count_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Count reconciled.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "1, 2, ... per count; highest is current.",
+        "units": "",
+        "allowed": "",
+        "validation": "unique per count"
+      },
+      {
+        "name": "supersedes_recon_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Previous version.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "trigger",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Why this version was computed.",
+        "units": "",
+        "allowed": "COUNT_SUBMITTED, LATE_MOVEMENT, MANUAL_RECOMPUTE",
+        "validation": ""
+      },
+      {
+        "name": "opening_qty",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "StoreSKU opening balance.",
+        "units": "units",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "receipts_qty",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "+ RECEIPT stock (net of reversals).",
+        "units": "units",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "transfer_in_qty",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "+ TRANSFER_IN stock.",
+        "units": "units",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "restocked_returns_qty",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "+ RETURN stock (restockable dispositions only).",
+        "units": "units",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "sales_qty",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "- SALE units (positive number).",
+        "units": "units",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "transfer_out_qty",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "- TRANSFER_OUT units (positive number).",
+        "units": "units",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "adjustments_qty",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "+ signed approved ADJUSTMENT stock.",
+        "units": "units",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "expected_qty",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Derived expected on-hand at cutoff.",
+        "units": "units",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "counted_qty",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Copied from the count.",
+        "units": "units",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "variance_qty",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "counted_qty - expected_qty.",
+        "units": "units",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "variance_value_cents",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "variance_qty * unit_cost_cents.",
+        "units": "USD cents",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "movement_count",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Ledger entries contributing.",
+        "units": "rows",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "ledger_watermark_seq",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Max ledger_seq visible when computed (snapshot).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "basis_status",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Whether the count basis is reliable.",
+        "units": "",
+        "allowed": "RELIABLE, TIMING_REVIEW",
+        "validation": ""
+      },
+      {
+        "name": "basis_notes",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "JSON details for TIMING_REVIEW (violations, movements between).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "created_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Computation time.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "rule_definition": {
+    "entity": "RuleDefinition",
+    "description": "Versioned, explainable detection rules.",
+    "append_only": false,
+    "primary_key": [
+      "rule_code",
+      "rule_version"
+    ],
+    "unique": [],
+    "foreign_keys": [],
+    "checks": [],
+    "columns": [
+      {
+        "name": "rule_code",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Rule identifier.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "rule_version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Version; params never change within a version.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "alert_class",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Class of alert produced.",
+        "units": "",
+        "allowed": "SHRINKAGE, PATTERN, TRANSFER, DATA_QUALITY",
+        "validation": ""
+      },
+      {
+        "name": "description",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Plain-language logic.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "params_json",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Thresholds and windows, JSON.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "is_active",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "1 when used by new runs.",
+        "units": "",
+        "allowed": "0, 1",
+        "validation": ""
+      },
+      {
+        "name": "effective_from",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Activation time.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "detection_run": {
+    "entity": "DetectionRun",
+    "description": "A detection execution (immutable request).",
+    "append_only": false,
+    "primary_key": [
+      "run_id"
+    ],
+    "unique": [],
+    "foreign_keys": [
+      "(requested_by) \u2192 employee(employee_id)"
+    ],
+    "checks": [],
+    "columns": [
+      {
+        "name": "run_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Run ID.",
+        "units": "",
+        "allowed": "",
+        "validation": "^RUN-2026-\\d{6}$"
+      },
+      {
+        "name": "requested_by",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Requester.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "requested_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Queue time.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "as_of",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Evaluation horizon (default: latest occurred_at in ledger).",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "rules_json",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Rule codes+versions+params used.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "detection_run_status": {
+    "entity": "DetectionRunStatus",
+    "description": "Mutable progress projection of a run (1:1).",
+    "append_only": false,
+    "primary_key": [
+      "run_id"
+    ],
+    "unique": [],
+    "foreign_keys": [
+      "(run_id) \u2192 detection_run(run_id)"
+    ],
+    "checks": [
+      "status IN ('QUEUED', 'RUNNING', 'COMPLETED', 'FAILED')"
+    ],
+    "columns": [
+      {
+        "name": "run_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Run.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "status",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "State.",
+        "units": "",
+        "allowed": "QUEUED, RUNNING, COMPLETED, FAILED",
+        "validation": ""
+      },
+      {
+        "name": "started_at",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Start.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "finished_at",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Finish.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "ledger_watermark_seq",
+        "type": "INTEGER",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Ledger snapshot evaluated.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "alerts_new",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Alerts created.",
+        "units": "alerts",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "alerts_redetected",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Existing case keys seen again.",
+        "units": "alerts",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "duration_ms",
+        "type": "INTEGER",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Wall time.",
+        "units": "ms",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "error_message",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Failure detail.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "shrinkage_alert": {
+    "entity": "ShrinkageAlert",
+    "description": "Explainable finding. Immutable; its open/closed state follows its investigation.",
+    "append_only": true,
+    "primary_key": [
+      "alert_id"
+    ],
+    "unique": [
+      "case_key"
+    ],
+    "foreign_keys": [
+      "(count_id) \u2192 cycle_count(count_id)",
+      "(first_run_id) \u2192 detection_run(run_id)",
+      "(investigation_id) \u2192 investigation(investigation_id)",
+      "(recon_id) \u2192 count_reconciliation(recon_id)",
+      "(related_store_id) \u2192 store(store_id)",
+      "(rule_code, rule_version) \u2192 rule_definition(rule_code, rule_version)",
+      "(sku_id) \u2192 sku(sku_id)",
+      "(store_id) \u2192 store(store_id)",
+      "(transfer_id) \u2192 transfer(transfer_id)"
+    ],
+    "checks": [
+      "alert_class IN ('SHRINKAGE', 'PATTERN', 'TRANSFER', 'DATA_QUALITY')",
+      "alert_type IN ('UNEXPLAINED_SHORTAGE', 'REPEATED_NEGATIVE_ADJUSTMENTS', 'TRANSFER_DOUBLE_COUNT', 'TRANSFER_OVERDUE_DISCREPANCY', 'COUNT_TIMING_REVIEW')",
+      "severity IN ('LOW', 'MEDIUM', 'HIGH')"
+    ],
+    "columns": [
+      {
+        "name": "alert_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Alert ID.",
+        "units": "",
+        "allowed": "",
+        "validation": "^SHR-2026-\\d{6}$"
+      },
+      {
+        "name": "case_key",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": true,
+        "desc": "Stable discrepancy key; reruns never duplicate it.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "rule_code",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Rule that fired.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "rule_version",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Rule version.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "alert_class",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "SHRINKAGE vs data quality etc.",
+        "units": "",
+        "allowed": "SHRINKAGE, PATTERN, TRANSFER, DATA_QUALITY",
+        "validation": ""
+      },
+      {
+        "name": "alert_type",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Specific finding.",
+        "units": "",
+        "allowed": "UNEXPLAINED_SHORTAGE, REPEATED_NEGATIVE_ADJUSTMENTS, TRANSFER_DOUBLE_COUNT, TRANSFER_OVERDUE_DISCREPANCY, COUNT_TIMING_REVIEW",
+        "validation": ""
+      },
+      {
+        "name": "severity",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Triage priority.",
+        "units": "",
+        "allowed": "LOW, MEDIUM, HIGH",
+        "validation": ""
+      },
+      {
+        "name": "store_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Primary store (receiver for transfers).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "related_store_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Other end of a transfer.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "sku_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "SKU when the alert is SKU-level.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "count_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Count (count-grain rules).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "recon_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Reconciliation version evaluated.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "transfer_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Transfer (transfer rule).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "window_start",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Pattern window start.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "window_end",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Pattern window end.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "threshold_value",
+        "type": "INTEGER",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Threshold applied.",
+        "units": "units",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "observed_value",
+        "type": "INTEGER",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Observed value compared to the threshold.",
+        "units": "units",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "calculation_json",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Full calculation shown to users.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "reason_text",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Evidence-based explanation.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "first_run_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Run that created it.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "investigation_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Case opened for it (N:1).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "created_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Creation time.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "alert_evidence": {
+    "entity": "AlertEvidence",
+    "description": "Alert 1:N links to source records.",
+    "append_only": true,
+    "primary_key": [
+      "evidence_id"
+    ],
+    "unique": [],
+    "foreign_keys": [
+      "(alert_id) \u2192 shrinkage_alert(alert_id)",
+      "(count_id) \u2192 cycle_count(count_id)",
+      "(import_row_id) \u2192 import_raw_row(row_id)",
+      "(movement_id) \u2192 inventory_movement(movement_id)",
+      "(recon_id) \u2192 count_reconciliation(recon_id)",
+      "(sku_id) \u2192 sku(sku_id)",
+      "(transfer_id) \u2192 transfer(transfer_id)"
+    ],
+    "checks": [
+      "evidence_type IN ('MOVEMENT', 'COUNT', 'RECONCILIATION', 'IMPORT_ROW', 'TRANSFER_LINE')"
+    ],
+    "columns": [
+      {
+        "name": "evidence_id",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Surrogate key.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "alert_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Alert.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "evidence_type",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Kind of source record.",
+        "units": "",
+        "allowed": "MOVEMENT, COUNT, RECONCILIATION, IMPORT_ROW, TRANSFER_LINE",
+        "validation": ""
+      },
+      {
+        "name": "evidence_role",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "How it supports the alert (CONTRIBUTING, EXPLANATION, DISPATCH, RECEIPT, WRITE_OFF, ...).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "movement_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Ledger entry.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "count_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Count.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "recon_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Reconciliation.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "import_row_id",
+        "type": "INTEGER",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Quarantined row.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "transfer_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Transfer.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "sku_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "SKU of the evidence.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "qty",
+        "type": "INTEGER",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Units this evidence contributes.",
+        "units": "units",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "note",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Short explanation.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "detection_run_alert": {
+    "entity": "DetectionRunAlert",
+    "description": "Bridge DetectionRun N:M ShrinkageAlert (history of re-detections).",
+    "append_only": true,
+    "primary_key": [
+      "run_id",
+      "alert_id"
+    ],
+    "unique": [],
+    "foreign_keys": [
+      "(alert_id) \u2192 shrinkage_alert(alert_id)",
+      "(run_id) \u2192 detection_run(run_id)"
+    ],
+    "checks": [],
+    "columns": [
+      {
+        "name": "run_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Run.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "alert_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Alert.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "outcome",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "NEW or REDETECTED.",
+        "units": "",
+        "allowed": "NEW, REDETECTED",
+        "validation": ""
+      },
+      {
+        "name": "observed_value",
+        "type": "INTEGER",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Value observed in this run.",
+        "units": "units",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "investigation": {
+    "entity": "Investigation",
+    "description": "Case header (immutable). Current state is projected from investigation_event.",
+    "append_only": false,
+    "primary_key": [
+      "investigation_id"
+    ],
+    "unique": [
+      "case_key"
+    ],
+    "foreign_keys": [
+      "(related_store_id) \u2192 store(store_id)",
+      "(store_id) \u2192 store(store_id)"
+    ],
+    "checks": [],
+    "columns": [
+      {
+        "name": "investigation_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Case ID.",
+        "units": "",
+        "allowed": "",
+        "validation": "^INV-2026-\\d{6}$"
+      },
+      {
+        "name": "case_key",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": true,
+        "desc": "Same stable key as the originating alert.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "origin_type",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "What raised the case.",
+        "units": "",
+        "allowed": "COUNT, MOVEMENT_PATTERN, TRANSFER, DATA_QUALITY",
+        "validation": ""
+      },
+      {
+        "name": "store_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Primary store.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "related_store_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Other transfer end.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "opened_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Open time.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "investigation_event": {
+    "entity": "InvestigationEvent",
+    "description": "Append-only case history (Investigation 1:N).",
+    "append_only": true,
+    "primary_key": [
+      "event_id"
+    ],
+    "unique": [
+      "investigation_id, seq"
+    ],
+    "foreign_keys": [
+      "(actor_id) \u2192 employee(employee_id)",
+      "(actor_role_code) \u2192 employee_role(role_code)",
+      "(assignee_id) \u2192 employee(employee_id)",
+      "(investigation_id) \u2192 investigation(investigation_id)",
+      "(run_id) \u2192 detection_run(run_id)",
+      "(write_off_movement_id) \u2192 inventory_movement(movement_id)"
+    ],
+    "checks": [
+      "event_type <> 'RESOLVED' OR (resolution_code IS NOT NULL AND length(note) >= 10)",
+      "event_type IN ('OPENED', 'ASSIGNED', 'REVIEW_STARTED', 'FINDING_ADDED', 'RESOLVED', 'REDETECTED')",
+      "to_status IN ('OPEN', 'ASSIGNED', 'IN_REVIEW', 'RESOLVED')"
+    ],
+    "columns": [
+      {
+        "name": "event_id",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Surrogate key.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "investigation_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Case.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "seq",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "1-based order within the case.",
+        "units": "",
+        "allowed": "",
+        "validation": "unique per case, gapless"
+      },
+      {
+        "name": "event_type",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "What happened.",
+        "units": "",
+        "allowed": "OPENED, ASSIGNED, REVIEW_STARTED, FINDING_ADDED, RESOLVED, REDETECTED",
+        "validation": ""
+      },
+      {
+        "name": "from_status",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Status before.",
+        "units": "",
+        "allowed": "OPEN, ASSIGNED, IN_REVIEW, RESOLVED",
+        "validation": ""
+      },
+      {
+        "name": "to_status",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Status after.",
+        "units": "",
+        "allowed": "OPEN, ASSIGNED, IN_REVIEW, RESOLVED",
+        "validation": ""
+      },
+      {
+        "name": "actor_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Who did it.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "actor_role_code",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Role that authorised it.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "assignee_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Assignee (ASSIGNED).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "note",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Finding or reason text.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "resolution_code",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Decision (RESOLVED).",
+        "units": "",
+        "allowed": "CONFIRMED_THEFT, COUNT_ERROR, DATA_CORRECTION, TIMING_CORRECTED, TRANSFER_RECONCILED, BENIGN_EXPLAINED, NO_ACTION",
+        "validation": ""
+      },
+      {
+        "name": "write_off_movement_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Separate ledger write-off approved with the resolution.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "run_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Run (OPENED/REDETECTED).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "occurred_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Event time.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "investigation_state": {
+    "entity": "InvestigationState",
+    "description": "Mutable projection of the event log (rebuildable).",
+    "append_only": false,
+    "primary_key": [
+      "investigation_id"
+    ],
+    "unique": [],
+    "foreign_keys": [
+      "(assignee_id) \u2192 employee(employee_id)",
+      "(investigation_id) \u2192 investigation(investigation_id)"
+    ],
+    "checks": [
+      "status IN ('OPEN', 'ASSIGNED', 'IN_REVIEW', 'RESOLVED')"
+    ],
+    "columns": [
+      {
+        "name": "investigation_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Case.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "status",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Current status (projection of last event).",
+        "units": "",
+        "allowed": "OPEN, ASSIGNED, IN_REVIEW, RESOLVED",
+        "validation": ""
+      },
+      {
+        "name": "last_seq",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "seq of the last applied event (optimistic concurrency).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "assignee_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Current assignee.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "resolution_code",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Final decision.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "resolved_at",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Resolution time.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "updated_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Last change.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "job": {
+    "entity": "Job",
+    "description": "Background work queue polled by the worker.",
+    "append_only": false,
+    "primary_key": [
+      "job_id"
+    ],
+    "unique": [],
+    "foreign_keys": [],
+    "checks": [
+      "job_type IN ('IMPORT', 'DETECTION')",
+      "status IN ('QUEUED', 'RUNNING', 'DONE', 'FAILED')"
+    ],
+    "columns": [
+      {
+        "name": "job_id",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Job ID.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "job_type",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Work kind.",
+        "units": "",
+        "allowed": "IMPORT, DETECTION",
+        "validation": ""
+      },
+      {
+        "name": "ref_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "batch_id or run_id.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "status",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Queue state.",
+        "units": "",
+        "allowed": "QUEUED, RUNNING, DONE, FAILED",
+        "validation": ""
+      },
+      {
+        "name": "attempts",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Claims so far.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "worker_id",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Claiming worker.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "created_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Enqueue time.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "started_at",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Claim time.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "finished_at",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Finish time.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "error_message",
+        "type": "TEXT",
+        "nullable": true,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Failure detail.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "id_sequence": {
+    "entity": "IdSequence",
+    "description": "Counters for backend-allocated public IDs.",
+    "append_only": false,
+    "primary_key": [
+      "name"
+    ],
+    "unique": [],
+    "foreign_keys": [],
+    "checks": [],
+    "columns": [
+      {
+        "name": "name",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "Sequence name.",
+        "units": "",
+        "allowed": "movement, recon, alert, investigation, batch, run, count, return",
+        "validation": ""
+      },
+      {
+        "name": "last_value",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Last allocated counter.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  },
+  "api_token": {
+    "entity": "ApiToken",
+    "description": "Session tokens.",
+    "append_only": false,
+    "primary_key": [
+      "token_sha256"
+    ],
+    "unique": [],
+    "foreign_keys": [
+      "(employee_id) \u2192 employee(employee_id)"
+    ],
+    "checks": [],
+    "columns": [
+      {
+        "name": "token_sha256",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": true,
+        "unique": false,
+        "desc": "SHA-256 of the bearer token (token itself is never stored).",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "employee_id",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Owner.",
+        "units": "",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "created_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Issue time.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      },
+      {
+        "name": "expires_at",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "unique": false,
+        "desc": "Expiry.",
+        "units": "ISO-8601 UTC, YYYY-MM-DDTHH:MM:SSZ",
+        "allowed": "",
+        "validation": ""
+      }
+    ]
+  }
+}

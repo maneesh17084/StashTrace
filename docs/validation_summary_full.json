@@ -1,0 +1,544 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "area": "files",
+      "check": "primary key unique: store.store_id",
+      "checked": 100,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "primary key unique: sku.sku_id",
+      "checked": 5000,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "primary key unique: store_sku(store_id, sku_id)",
+      "checked": 65786,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "primary key unique: employee.employee_id",
+      "checked": 1024,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "primary key unique: role_assignment.assignment_id",
+      "checked": 1116,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "primary key unique: shift.shift_id",
+      "checked": 36200,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "primary key unique: promotion.promotion_id",
+      "checked": 120,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "primary key unique: promotion_scope",
+      "checked": 7675,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "primary key unique: source_document.doc_id",
+      "checked": 34290,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "primary key unique: transfer.transfer_id",
+      "checked": 15735,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "primary key unique: transfer_line(transfer_id, sku_id)",
+      "checked": 53983,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "primary key unique: count input count_id",
+      "checked": 20000,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "primary key unique: ground truth gt_id",
+      "checked": 39379,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "foreign keys: store_sku -> store, sku, source warehouse",
+      "checked": 65786,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "foreign keys: employee -> home store",
+      "checked": 1024,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "foreign keys: role_assignment -> employee, role, store",
+      "checked": 1116,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "foreign keys: shift -> store",
+      "checked": 36200,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "foreign keys: promotion_scope -> promotion, store_sku",
+      "checked": 7675,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "foreign keys: source_document -> store",
+      "checked": 34290,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "foreign keys: transfer -> stores (distinct ends)",
+      "checked": 15735,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "foreign keys: transfer_line -> transfer, assortment at both ends",
+      "checked": 53983,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "allowed values: store.store_type",
+      "checked": 100,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "allowed values: sku.category",
+      "checked": 5000,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "allowed values: sku.shrink_risk",
+      "checked": 5000,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "allowed values: shift.shift_type",
+      "checked": 36200,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "allowed values: promotion.promo_type",
+      "checked": 120,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "allowed values: source_document.doc_type",
+      "checked": 34290,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "allowed values: movement.movement_type",
+      "checked": 1000000,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "allowed values: movement.disposition",
+      "checked": 1000000,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "allowed values: count.count_type",
+      "checked": 20000,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "ID formats (movement, count, store, sku)",
+      "checked": 1020000,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "date ordering: store_sku active_to > active_from",
+      "checked": 65786,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "date ordering: role_assignment effective_to > effective_from",
+      "checked": 1116,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "date ordering: shift end_at > start_at",
+      "checked": 36200,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "date ordering: promotion end_date >= start_date",
+      "checked": 120,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "date ordering: transfer expected_arrival >= created",
+      "checked": 15735,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "date ordering: movement received_at >= occurred_at",
+      "checked": 1000000,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "date ordering: count submitted_at >= counted_at (except labelled SUBMIT_EARLY)",
+      "checked": 20000,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "date ordering: movement sorted by received_at (feed order)",
+      "checked": 999999,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "repeated event keys are all labelled (replay/conflict/correction)",
+      "checked": 997090,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "exact duplicate rows == labelled feed replays",
+      "checked": 1000000,
+      "failures": 0,
+      "status": "PASS",
+      "detail": {
+        "duplicate_rows": 2000,
+        "labelled": 2000
+      }
+    },
+    {
+      "area": "files",
+      "check": "unlabelled movement rows have valid references (store/doc/transfer/shift/actor/reason)",
+      "checked": 1000000,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "lifecycle: transfer receipt follows dispatch",
+      "checked": 53731,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "lifecycle: return follows its original sale",
+      "checked": 13988,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "lifecycle: leavers' role assignments end by termination",
+      "checked": 40,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "ground truth not leaked into input columns",
+      "checked": 29,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "ground truth rows reference existing inputs",
+      "checked": 39379,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "volume: movement inputs == profile target",
+      "checked": 1000000,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "files",
+      "check": "volume: count inputs == profile target",
+      "checked": 20000,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "database",
+      "check": "SQLite integrity_check",
+      "checked": 1,
+      "failures": 0,
+      "status": "PASS",
+      "detail": "ok"
+    },
+    {
+      "area": "database",
+      "check": "foreign_key_check",
+      "checked": 996550,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "database",
+      "check": "ledger rebuild == cached stock_balance",
+      "checked": 65786,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "database",
+      "check": "stock equation holds on every reconciliation",
+      "checked": 20340,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "database",
+      "check": "current reconciliations recompute from the ledger",
+      "checked": 19960,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "database",
+      "check": "no count is missing a late movement (re-versioning complete)",
+      "checked": 19960,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "database",
+      "check": "quarantined/duplicate/conflict rows never reach the ledger",
+      "checked": 3490,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "database",
+      "check": "every ledger row traces to a POSTED import row",
+      "checked": 996550,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "database",
+      "check": "batch counters add up",
+      "checked": 357,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "database",
+      "check": "no duplicate ledger events (source key) or double reversals",
+      "checked": 996550,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "database",
+      "check": "transfer legs posted only by the referenced end",
+      "checked": 107941,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "database",
+      "check": "adjustments carry reason and an approver other than the actor",
+      "checked": 13661,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "database",
+      "check": "every posting's actor role was effective at the event time and store",
+      "checked": 996550,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "database",
+      "check": "every posting with a shift is inside that shift at that store",
+      "checked": 996550,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "database",
+      "check": "case state == last event; event seq gapless",
+      "checked": 1528,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "database",
+      "check": "every alert has rule version, run, case and evidence",
+      "checked": 1528,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "database",
+      "check": "no shrinkage alert on a count under timing review",
+      "checked": 664,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "area": "database",
+      "check": "every movement input row has exactly one outcome",
+      "checked": 1000000,
+      "failures": 0,
+      "status": "PASS",
+      "detail": null
+    }
+  ]
+}

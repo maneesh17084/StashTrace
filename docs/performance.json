@@ -1,0 +1,74 @@
+{
+  "hardware": {
+    "platform": "Windows-10-10.0.26300-SP0",
+    "processor": "Intel64 Family 6 Model 142 Stepping 10, GenuineIntel",
+    "cpu_count": 8,
+    "python": "3.11.0",
+    "db_bytes": 1322602496
+  },
+  "results": [
+    {
+      "endpoint": "GET /dashboard/summary (all stores)",
+      "n": 30,
+      "p50_ms": 326.8,
+      "p95_ms": 408.9,
+      "max_ms": 432.3
+    },
+    {
+      "endpoint": "GET /dashboard/summary (one store)",
+      "n": 30,
+      "p50_ms": 275.0,
+      "p95_ms": 359.3,
+      "max_ms": 401.7
+    },
+    {
+      "endpoint": "GET /alerts (open queue, page 1)",
+      "n": 30,
+      "p50_ms": 56.6,
+      "p95_ms": 71.4,
+      "max_ms": 75.0
+    },
+    {
+      "endpoint": "GET /alerts/{id}",
+      "n": 30,
+      "p50_ms": 24.7,
+      "p95_ms": 50.2,
+      "max_ms": 53.3
+    },
+    {
+      "endpoint": "GET /reconciliations (store filter)",
+      "n": 30,
+      "p50_ms": 37.8,
+      "p95_ms": 57.4,
+      "max_ms": 63.7
+    },
+    {
+      "endpoint": "GET /reconciliations/{id}",
+      "n": 30,
+      "p50_ms": 39.6,
+      "p95_ms": 60.2,
+      "max_ms": 66.3
+    },
+    {
+      "endpoint": "GET /movements (store + sku)",
+      "n": 30,
+      "p50_ms": 33.5,
+      "p95_ms": 84.0,
+      "max_ms": 115.2
+    },
+    {
+      "endpoint": "GET /imports",
+      "n": 30,
+      "p50_ms": 41.0,
+      "p95_ms": 50.7,
+      "max_ms": 70.4
+    },
+    {
+      "endpoint": "GET /investigations (open)",
+      "n": 30,
+      "p50_ms": 98.6,
+      "p95_ms": 200.1,
+      "max_ms": 226.4
+    }
+  ]
+}

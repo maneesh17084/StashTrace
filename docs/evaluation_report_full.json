@@ -1,0 +1,194 @@
+{
+  "data": "data\\full",
+  "db": "var\\full.db",
+  "movement": {
+    "by_scenario": {
+      "ADJUSTMENT_REASON_MISSING": {
+        "n": 600,
+        "correct": 600,
+        "accuracy": 1.0
+      },
+      "FEED_REPLAY": {
+        "n": 2000,
+        "correct": 2000,
+        "accuracy": 1.0
+      },
+      "PAYLOAD_CONFLICT": {
+        "n": 100,
+        "correct": 100,
+        "accuracy": 1.0
+      },
+      "POS_RERING_REVERSAL": {
+        "n": 200,
+        "correct": 200,
+        "accuracy": 1.0
+      },
+      "ROLE_OUTSIDE_EFFECTIVE_DATES": {
+        "n": 150,
+        "correct": 150,
+        "accuracy": 1.0
+      },
+      "WRONG_STORE": {
+        "n": 600,
+        "correct": 600,
+        "accuracy": 1.0
+      }
+    },
+    "quarantine_rules": {
+      "ACTOR_NOT_AUTHORIZED": {
+        "tp": 150,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "ADJUSTMENT_REASON_MISSING": {
+        "tp": 600,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "WRONG_STORE_REFERENCE": {
+        "tp": 600,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    },
+    "unexpected_non_posted_rows": {},
+    "baseline_rows_posted_ok": 993440
+  },
+  "count": {
+    "rules": {
+      "UNEXPLAINED_SHORTAGE": {
+        "tp": 589,
+        "fp": 75,
+        "fn": 3,
+        "tn": 19053,
+        "precision": 0.887,
+        "recall": 0.9949,
+        "false_positive_rate": 0.0039
+      },
+      "COUNT_TIMING": {
+        "tp": 240,
+        "fp": 0,
+        "fn": 0,
+        "tn": 19720,
+        "precision": 1.0,
+        "recall": 1.0,
+        "false_positive_rate": 0.0
+      },
+      "COUNT_QUARANTINE": {
+        "tp": 40,
+        "fp": 0,
+        "fn": 0,
+        "tn": 19960,
+        "precision": 1.0,
+        "recall": 1.0,
+        "false_positive_rate": 0.0
+      }
+    },
+    "by_scenario_predicted": {
+      "BASELINE": {
+        "NO_ALERT": 15547
+      },
+      "BENIGN_NOISE": {
+        "NO_ALERT": 2817,
+        "SHRINKAGE_ALERT": 3
+      },
+      "BOUNDARY_ABOVE_THRESHOLD": {
+        "SHRINKAGE_ALERT": 60
+      },
+      "BOUNDARY_AT_THRESHOLD": {
+        "SHRINKAGE_ALERT": 59,
+        "NO_ALERT": 1
+      },
+      "BOUNDARY_BELOW_THRESHOLD": {
+        "NO_ALERT": 53,
+        "SHRINKAGE_ALERT": 7
+      },
+      "COUNT_BY_UNAUTHORIZED_ACTOR": {
+        "QUARANTINE": 40
+      },
+      "COUNT_TIMING_CONFLICT": {
+        "TIMING_REVIEW": 240
+      },
+      "LATE_MOVEMENT_BENIGN": {
+        "NO_ALERT": 239
+      },
+      "MISCOUNT_MISSED_LOCATION": {
+        "SHRINKAGE_ALERT": 64,
+        "NO_ALERT": 16
+      },
+      "QUARANTINE_EXPLAINED": {
+        "NO_ALERT": 377,
+        "SHRINKAGE_ALERT": 1
+      },
+      "UNEXPLAINED_LOSS": {
+        "SHRINKAGE_ALERT": 438,
+        "NO_ALERT": 2
+      },
+      "UNEXPLAINED_LOSS_CARRYOVER": {
+        "SHRINKAGE_ALERT": 32,
+        "NO_ALERT": 4
+      }
+    },
+    "reconciliation_matches_oracle": {
+      "checked": 19960,
+      "mismatches": 0,
+      "examples": []
+    },
+    "late_movement_counts_with_multiple_versions": 239,
+    "late_movement_counts": 239
+  },
+  "transfer": {
+    "rules": {
+      "TRANSFER_RECON": {
+        "tp": 533,
+        "fp": 0,
+        "fn": 0,
+        "tn": 15116,
+        "precision": 1.0,
+        "recall": 1.0,
+        "false_positive_rate": 0.0
+      }
+    },
+    "alert_type_agreement": 1.0,
+    "by_scenario_predicted": {
+      "TRANSFER_DELAYED_WITHIN_GRACE": {
+        "NO_ALERT": 376
+      },
+      "TRANSFER_DOUBLE_COUNT": {
+        "TRANSFER_DOUBLE_COUNT": 282
+      },
+      "TRANSFER_IN_TRANSIT_AT_END": {
+        "NO_ALERT": 173
+      },
+      "TRANSFER_NORMAL": {
+        "NO_ALERT": 14108
+      },
+      "TRANSFER_SHORT_UNRESOLVED": {
+        "TRANSFER_OVERDUE_DISCREPANCY": 251
+      },
+      "TRANSFER_SHORT_WRITTEN_OFF_ONCE": {
+        "NO_ALERT": 459
+      }
+    },
+    "alerts_on_unlabelled_transfers": 0
+  },
+  "adjustment_pattern": {
+    "rules": {
+      "REPEATED_NEG_ADJ": {
+        "tp": 80,
+        "fn": 0,
+        "fp_alerts": 11,
+        "precision": 0.8791,
+        "recall": 1.0,
+        "false_positive_rate": 0.002,
+        "benign_store_sku_pairs_with_writeoffs": 5378
+      }
+    }
+  }
+}

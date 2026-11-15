@@ -1,0 +1,8 @@
+# Runtime (pinned; tested with Python 3.11)
+fastapi==0.115.2
+starlette==0.40.0
+uvicorn==0.22.0
+SQLAlchemy==2.0.36
+pydantic==2.9.2
+alembic==1.13.3
+python-multipart==0.0.12

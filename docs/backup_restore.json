@@ -1,0 +1,44 @@
+{
+  "source": "var\\full.db",
+  "backup": "var\\backup\\full.db",
+  "restored": "var\\backup\\full-restored.db",
+  "backup_seconds": 16.5,
+  "restore_seconds": 20.5,
+  "integrity_check": "ok",
+  "foreign_key_violations": 0,
+  "identical": true,
+  "source_fingerprint": {
+    "revision": "0004",
+    "rows": {
+      "inventory_movement": 996550,
+      "stock_balance": 65786,
+      "cycle_count": 19960,
+      "count_reconciliation": 20340,
+      "import_row_result": 1020000,
+      "shrinkage_alert": 1528,
+      "alert_evidence": 11358,
+      "investigation_event": 1528,
+      "store_sku": 65786,
+      "role_assignment": 1116
+    },
+    "ledger_sha256": "cab33d57462ead33419501736dc379e0355c1bb1578f0c350e4b559e3327ee0e",
+    "balance_sha256": "b674fd5b8a1f4fe54e93fdefb19e371a6cd7fa4c0a315790c3b9051a950046cb"
+  },
+  "restored_fingerprint": {
+    "revision": "0004",
+    "rows": {
+      "inventory_movement": 996550,
+      "stock_balance": 65786,
+      "cycle_count": 19960,
+      "count_reconciliation": 20340,
+      "import_row_result": 1020000,
+      "shrinkage_alert": 1528,
+      "alert_evidence": 11358,
+      "investigation_event": 1528,
+      "store_sku": 65786,
+      "role_assignment": 1116
+    },
+    "ledger_sha256": "cab33d57462ead33419501736dc379e0355c1bb1578f0c350e4b559e3327ee0e",
+    "balance_sha256": "b674fd5b8a1f4fe54e93fdefb19e371a6cd7fa4c0a315790c3b9051a950046cb"
+  }
+}

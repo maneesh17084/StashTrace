@@ -1,0 +1,165 @@
+{
+  "generator": "data_tools/generate.py",
+  "generator_version": "1.0.0",
+  "profile": "full",
+  "seed": 20261022,
+  "command": "python -m data_tools.generate --profile full --seed 20261022 --out data/full",
+  "parameters": {
+    "stores": 92,
+    "warehouses": 8,
+    "regions": 8,
+    "skus": 5000,
+    "skus_per_store": [
+      430,
+      700
+    ],
+    "movements": 1000000,
+    "counts": 20000,
+    "days": 181,
+    "sale_fraction": 0.768
+  },
+  "scenario_rates": {
+    "theft": 0.022,
+    "boundary_each": 0.003,
+    "timing": 0.012,
+    "late": 0.012,
+    "invalid_count": 0.002,
+    "missed_location": 0.004,
+    "wrong_store": 0.0006,
+    "missing_reason": 0.0006,
+    "role_expired": 0.00015,
+    "duplicate": 0.002,
+    "conflict": 0.0001,
+    "rering": 0.0002,
+    "repeated_adj": 0.004,
+    "transfer_double": 0.006,
+    "transfer_unresolved": 0.006,
+    "transfer_once": 0.01,
+    "transfer_delay": 0.03
+  },
+  "label_threshold_units": 5,
+  "period": {
+    "start": "2026-01-01",
+    "days": 181
+  },
+  "provenance": {
+    "external_data": "none",
+    "method": "100% synthetic; name/word lists authored for this project; no personal or confidential data",
+    "license": "Generated data may be freely redistributed."
+  },
+  "demo_logins": [
+    "EMP-000004",
+    "EMP-000005",
+    "EMP-000007",
+    "EMP-000009",
+    "EMP-000017",
+    "EMP-000022"
+  ],
+  "volumes": {
+    "movement_inputs": 1000000,
+    "count_inputs": 20000,
+    "count_corrections_posted_by_stores": 3453,
+    "topup_delta": -2418
+  },
+  "evaluation_only_files": [
+    "ground_truth.csv",
+    "ground_truth.json"
+  ],
+  "files": {
+    "counts_input.csv": {
+      "rows": 20000,
+      "bytes": 3049040,
+      "sha256": "da8cedefe5b95f95f401adae02874d10e5b74b9fe8868e1f9f175b7a4013796c"
+    },
+    "employee_roles.csv": {
+      "rows": 9,
+      "bytes": 369,
+      "sha256": "4889d8b160de8746c1784595ab200e8b004bdaaca73c85a15966c13071172b72"
+    },
+    "employees.csv": {
+      "rows": 1024,
+      "bytes": 64970,
+      "sha256": "67f59e72c215b0a81951daf914a6d2663070c6860105b8b067632fe9b0ffaa16"
+    },
+    "ground_truth.csv": {
+      "rows": 39379,
+      "bytes": 4584477,
+      "sha256": "e4589eaf04a38fc31a95ce35073a992cd704b2c45cd88a582ffbcb52c103dda5"
+    },
+    "ground_truth.json": {
+      "rows": null,
+      "bytes": 2115,
+      "sha256": "56d9257f3d6c2a5362882f5649eb7247ea4e601d8ad7b673d66e33af504b1ab1"
+    },
+    "movements_input.csv": {
+      "rows": 1000000,
+      "bytes": 166058764,
+      "sha256": "e9baea0f49c7d2c3666acd2543d990c2547e7c1098dfd365d5992dbf7ad9898e"
+    },
+    "promotion_scopes.csv": {
+      "rows": 7675,
+      "bytes": 307029,
+      "sha256": "cfce3950880f30c8e7911c44c1e6d8557a985bb0469362c79a0d3bcffac15452"
+    },
+    "promotions.csv": {
+      "rows": 120,
+      "bytes": 8307,
+      "sha256": "5efe57036be029535ed9fcd02a6c53015170fee6fd028dde9b81e7d88066b1f1"
+    },
+    "role_assignments.csv": {
+      "rows": 1116,
+      "bytes": 75976,
+      "sha256": "bc32e81b88d34b9baddb1234e9ff29ee6886963271ee96db01b48d607b0a51c1"
+    },
+    "role_permissions.csv": {
+      "rows": 63,
+      "bytes": 1509,
+      "sha256": "9541375c86e4fb02c9f4ebfff476f89a099895e82f8f2690d30943ec2e803353"
+    },
+    "shifts.csv": {
+      "rows": 36200,
+      "bytes": 3202308,
+      "sha256": "e6d05431700e58652cbc9f4ec66caae94e8ab5224c022657694c0d510539caf6"
+    },
+    "skus.csv": {
+      "rows": 5000,
+      "bytes": 443350,
+      "sha256": "75fe945de7c1949a30d15231aa0d38d38ac05940bd5d3a559c606bdddd2d3ef5"
+    },
+    "source_documents.csv": {
+      "rows": 34290,
+      "bytes": 1801743,
+      "sha256": "ed76915c04ed9159974bf26f4b6b36f80a16b3930d21be461fbe817e2c908690"
+    },
+    "sql/seed_masters.sql": {
+      "rows": null,
+      "bytes": 40178626,
+      "sha256": "73e53a1393188f6b1912388582a5e0a74e6890c5f2277157a3bce276b1faec7e"
+    },
+    "sql/stage_inputs.sqlite3.sql": {
+      "rows": null,
+      "bytes": 489,
+      "sha256": "d4eabc90694f6ce764a5e958f3a4a0180e38dc0edcdb2bf7d8310cd210035a70"
+    },
+    "store_skus.csv": {
+      "rows": 65786,
+      "bytes": 5270528,
+      "sha256": "cd6c6bb301a0e93de3bb9c50423ec376b839d5215c7109ee42984f0d979d8378"
+    },
+    "stores.csv": {
+      "rows": 100,
+      "bytes": 7901,
+      "sha256": "b66cf083dfbf1a48236f92f5d37f68a2dc40da1aabc5090acd322f331c6c8d43"
+    },
+    "transfer_lines.csv": {
+      "rows": 53983,
+      "bytes": 1575703,
+      "sha256": "f5e28f1ec410bc40f52302b9dd33c6e00fb0427c7d038dbcafed18eff1f82b6c"
+    },
+    "transfers.csv": {
+      "rows": 15735,
+      "bytes": 1321809,
+      "sha256": "c93f2329670c49e98cc7761eeb545717e1ba8470c694649833be29059de31b85"
+    }
+  }
+}

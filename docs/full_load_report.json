@@ -1,0 +1,80 @@
+{
+  "data": "data\\full",
+  "db": "var\\full.db",
+  "python": "3.11.0",
+  "platform": "Windows-10-10.0.26300-SP0",
+  "processor": "Intel64 Family 6 Model 142 Stepping 10, GenuineIntel",
+  "cpu_count": 8,
+  "masters": {
+    "store": 100,
+    "sku": 5000,
+    "store_sku": 65786,
+    "employee": 1024,
+    "role_assignment": 1116,
+    "shift": 36200,
+    "promotion": 120,
+    "promotion_scope": 7675,
+    "source_document": 34290,
+    "transfer": 15735,
+    "transfer_line": 53983
+  },
+  "masters_seconds": 6.9,
+  "import": {
+    "batches": 357,
+    "seconds": 941.9,
+    "movements": {
+      "received": 1000000,
+      "posted": 996550,
+      "quarantined": 1350,
+      "duplicate": 2000,
+      "conflict": 100
+    },
+    "counts": {
+      "received": 20000,
+      "posted": 19960,
+      "quarantined": 40,
+      "duplicate": 0,
+      "conflict": 0
+    },
+    "reconciliation_versions_from_late_movements": 380
+  },
+  "detection_runs": [
+    {
+      "run_id": "RUN-2026-000001",
+      "status": "COMPLETED",
+      "alerts_new": 1528,
+      "alerts_redetected": 0,
+      "duration_ms": 6890,
+      "as_of": "2026-06-30T20:59:55Z",
+      "ledger_watermark_seq": 996550
+    },
+    {
+      "run_id": "RUN-2026-000002",
+      "status": "COMPLETED",
+      "alerts_new": 0,
+      "alerts_redetected": 1528,
+      "duration_ms": 5876,
+      "as_of": "2026-06-30T20:59:55Z",
+      "ledger_watermark_seq": 996550
+    }
+  ],
+  "db_rows": {
+    "inventory_movement": 996550,
+    "import_row_result": 1020000,
+    "cycle_count": 19960,
+    "count_reconciliation": 20340,
+    "customer_return": 18612,
+    "shrinkage_alert": 1528,
+    "alert_evidence": 11358,
+    "investigation": 1528
+  },
+  "total_seconds": 964.5,
+  "demo_logins": [
+    "EMP-000004",
+    "EMP-000005",
+    "EMP-000007",
+    "EMP-000009",
+    "EMP-000017",
+    "EMP-000022"
+  ]
+}
